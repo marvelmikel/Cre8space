@@ -1,4 +1,4 @@
-# OAuth 2.0 Authentication API
+# Cre8space Africa System
 
 A secure and scalable authentication API built with Node.js, TypeScript, and MySQL, featuring OAuth 2.0 social login integration with Google, Facebook, and LinkedIn.
 
