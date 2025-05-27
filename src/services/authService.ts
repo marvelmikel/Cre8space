@@ -74,18 +74,18 @@ export const generateTokens = async (
     if (!jwtSecret) {
       throw new Error('JWT_SECRET environment variable is not set');
     }
-    
+
     // Generate access token
     const accessToken = jwt.sign(
       payload,
-      jwtSecret,
+      Buffer.from(jwtSecret, 'utf-8'),
       { expiresIn: process.env.JWT_ACCESS_EXPIRATION || '1h' }
     );
     
     // Generate refresh token
     const refreshToken = jwt.sign(
       { ...payload, type: 'refresh' },
-      jwtSecret,
+      Buffer.from(jwtSecret, 'utf-8'),
       { expiresIn: process.env.JWT_REFRESH_EXPIRATION || '7d' }
     );
     
@@ -136,7 +136,7 @@ export const verifyToken = (token: string): any => {
     if (!jwtSecret) {
       throw new Error('JWT_SECRET environment variable is not set');
     }
-    return jwt.verify(token, jwtSecret);
+    return jwt.verify(token, Buffer.from(jwtSecret, 'utf-8'));
   } catch (error) {
     logger.error('Token verification error:', error);
     throw error;
